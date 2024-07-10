@@ -13,7 +13,7 @@ router.post(
   ProductController.createProduct,
 )
 
-// router.get('/:id', CarController.getSingleCar)
+router.get('/:id', ProductController.getSingleProduct)
 // router.put(
 //   '/return',
 //   validateRequest(CarValidations.returnCarValidation),

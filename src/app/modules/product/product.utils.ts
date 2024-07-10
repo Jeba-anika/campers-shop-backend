@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { v2 as cloudinary } from 'cloudinary'
 import { NextFunction, Request, Response } from 'express'
 import httpStatus from 'http-status'
@@ -15,8 +16,8 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'uploads', // folder in cloudinary
-    format: async (req, file) => 'png', // supports promises as well
+    // folder: 'uploads', // folder in cloudinary
+    // format: async (req, file) => 'png', // supports promises as well
     public_id: (req, file) => file.originalname,
   },
 })
@@ -29,7 +30,7 @@ export const convertReq = catchAsync(
       const data = JSON.parse(req.body.data)
       const newData = {
         ...data,
-        productImagesLink: req.files.map((file) => ({
+        productImagesLink: (req.files as object[]).map((file: any) => ({
           altText: file?.filename,
           url: file?.path,
         })),

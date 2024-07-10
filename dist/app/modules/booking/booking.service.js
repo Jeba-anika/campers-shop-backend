@@ -1,3 +1,4 @@
+"use strict";
 // import httpStatus from 'http-status'
 // import mongoose from 'mongoose'
 // import QueryBuilder from '../../builder/QueryBuilder'
@@ -5,7 +6,6 @@
 // import { Car } from '../product/product.model'
 // import { TBooking, TCreateBooking } from './booking.interface'
 // import { Booking } from './booking.model'
-
 // const createBooking = async (payload: TCreateBooking, userId: string) => {
 //   const session = await mongoose.startSession()
 //   try {
@@ -14,7 +14,6 @@
 //     if (!isCarExists) {
 //       throw new AppError(httpStatus.NOT_FOUND, 'The car does not exist!')
 //     }
-
 //     if (isCarExists.status === 'unavailable') {
 //       throw new AppError(
 //         httpStatus.SERVICE_UNAVAILABLE,
@@ -32,7 +31,6 @@
 //       { status: 'unavailable' },
 //       { new: true },
 //     )
-
 //     const data: Partial<TBooking> = {
 //       user: userId,
 //       car: payload.carId,
@@ -42,7 +40,6 @@
 //     const result = (
 //       await (await Booking.create(data)).populate('user')
 //     ).populate('car')
-
 //     await session.commitTransaction()
 //     await session.endSession()
 //     return result
@@ -52,7 +49,6 @@
 //     throw new Error(err.message)
 //   }
 // }
-
 // const getAllBookings = async (query: Record<string, unknown>) => {
 //   const bookingQuery = new QueryBuilder(
 //     Booking.find().populate('user').populate('car'),

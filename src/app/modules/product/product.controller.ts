@@ -22,15 +22,15 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
 //     data: result,
 //   })
 // })
-// const getSingleCar = catchAsync(async (req: Request, res: Response) => {
-//   const result = await CarService.getSingleCar(req.params.id)
-//   sendResponse(res, {
-//     success: true,
-//     statusCode: httpStatus.OK,
-//     message: 'A Car retrieved successfully',
-//     data: result,
-//   })
-// })
+const getSingleProduct = catchAsync(async (req: Request, res: Response) => {
+  const result = await ProductService.getSingleProduct(req.params.id)
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'A Product retrieved successfully',
+    data: result,
+  })
+})
 // const updateCar = catchAsync(async (req: Request, res: Response) => {
 //   const result = await CarService.updateCar(req.params.id, req.body)
 //   sendResponse(res, {
@@ -61,4 +61,5 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
 
 export const ProductController = {
   createProduct,
+  getSingleProduct,
 }
