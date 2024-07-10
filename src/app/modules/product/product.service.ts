@@ -6,28 +6,30 @@ const createProduct = async (payload: TProduct) => {
   return result
 }
 
-// const getAllCars = async () => {
-//   const result = await Car.find({})
-//   return result
-// }
+const getAllProducts = async () => {
+  const result = await Product.find({})
+  return result
+}
 
 const getSingleProduct = async (productId: string) => {
   const result = await Product.findById(productId)
   return result
 }
 
-// const updateCar = async (carId: string, payload: Partial<TCar>) => {
-//   const result = await Car.findByIdAndUpdate(carId, payload, { new: true })
-//   return result
-// }
-// const deleteCar = async (carId: string) => {
-//   const result = await Car.findByIdAndUpdate(
-//     carId,
-//     { isDeleted: true },
-//     { new: true },
-//   )
-//   return result
-// }
+const updateProduct = async (productId: string, payload: Partial<TProduct>) => {
+  const result = await Product.findByIdAndUpdate(productId, payload, {
+    new: true,
+  })
+  return result
+}
+const deleteProduct = async (productId: string) => {
+  const result = await Product.findByIdAndUpdate(
+    productId,
+    { isDeleted: true },
+    { new: true },
+  )
+  return result
+}
 
 // const returnCar = async (payload: TReturnCar) => {
 //   const session = await mongoose.startSession()
@@ -75,4 +77,7 @@ const getSingleProduct = async (productId: string) => {
 export const ProductService = {
   createProduct,
   getSingleProduct,
+  getAllProducts,
+  updateProduct,
+  deleteProduct,
 }

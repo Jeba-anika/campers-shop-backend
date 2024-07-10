@@ -24,27 +24,29 @@ const createProductValidation = z.object({
     required_error: 'Specifications is required',
   }),
 })
-// const updateCarValidation = z.object({
-//   name: z.string({ required_error: 'User Name is required!' }).optional(),
-//   description: z
-//     .string({ required_error: 'Description is required!' })
-//     .optional(),
-//   color: z.string({ required_error: 'Color is required!' }).optional(),
-//   isElectric: z.boolean({ required_error: 'isElectric required!' }).optional(),
-//   features: z
-//     .array(z.string(), { required_error: 'Features is required' })
-//     .optional(),
-//   pricePerHour: z.number().optional(),
-// })
-
-// const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/
-// const returnCarValidation = z.object({
-//   bookingId: z.string({ required_error: 'Booking id is required!' }),
-//   endTime: z.string().refine((time) => timeRegex.test(time), {
-//     message: 'Invalid time format. Expected HH:mm.',
-//   }),
-// })
+const updateProductValidation = z.object({
+  categoryId: z.string().optional(),
+  extraInfo: z.array(z.object({}).passthrough()).optional(),
+  isDeleted: z.boolean().optional(),
+  productName: z.string().optional(),
+  description: z.string().optional(),
+  brand: z.string().optional(),
+  isAvailable: z.boolean().optional(),
+  features: z.array(z.object({}).passthrough()).optional(),
+  price: z.number().optional(),
+  soldCount: z.number().optional(),
+  productImagesLink: z
+    .array(
+      z.object({
+        altText: z.string({ required_error: 'Alt text is required!' }),
+        url: z.string({ required_error: 'URL is required!' }),
+      }),
+    )
+    .optional(),
+  specifications: z.array(z.object({}).passthrough()).optional(),
+})
 
 export const ProductValidations = {
   createProductValidation,
+  updateProductValidation,
 }

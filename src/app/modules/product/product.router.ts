@@ -1,14 +1,18 @@
 import express from 'express'
 import validateRequest from '../../middlewares/validateRequest'
 import { ProductController } from './product.controller'
-import { convertReq, parser } from './product.utils'
+import {
+  convertAddProductReq,
+  convertUpdateProductReq,
+  parser,
+} from './product.utils'
 import { ProductValidations } from './product.validation'
 const router = express.Router()
 
 router.post(
   '/',
   parser.array('images', 10),
-  convertReq,
+  convertAddProductReq,
   validateRequest(ProductValidations.createProductValidation),
   ProductController.createProduct,
 )
@@ -19,13 +23,15 @@ router.get('/:id', ProductController.getSingleProduct)
 //   validateRequest(CarValidations.returnCarValidation),
 //   CarController.returnCar,
 // )
-// router.put(
-//   '/:id',
-//   validateRequest(CarValidations.updateCarValidation),
-//   CarController.updateCar,
-// )
-// router.delete('/:id', CarController.deleteCar)
+router.put(
+  '/:id',
+  parser.array('images', 10),
+  convertUpdateProductReq,
+  validateRequest(ProductValidations.updateProductValidation),
+  ProductController.updateProduct,
+)
+router.delete('/:id', ProductController.deleteProduct)
 
-// router.get('/', CarController.getAllCars)
+router.get('/', ProductController.getAllProducts)
 
 export const ProductRoutes = router

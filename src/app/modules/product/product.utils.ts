@@ -24,7 +24,7 @@ const storage = new CloudinaryStorage({
 
 export const parser = multer({ storage })
 
-export const convertReq = catchAsync(
+export const convertAddProductReq = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     if (req.files) {
       const data = JSON.parse(req.body.data)
@@ -42,6 +42,25 @@ export const convertReq = catchAsync(
         httpStatus.NOT_ACCEPTABLE,
         'Please upload at least one image',
       )
+    }
+  },
+)
+export const convertUpdateProductReq = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    if (req.files) {
+      const data = JSON.parse(req.body.data)
+      const newData = {
+        ...data,
+        productImagesLink: (req.files as object[]).map((file: any) => ({
+          altText: file?.filename,
+          url: file?.path,
+        })),
+      }
+      req.body = newData
+      next()
+    } else {
+      req.body = JSON.parse(req.body.data)
+      next()
     }
   },
 )
