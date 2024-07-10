@@ -1,3 +1,5 @@
+import QueryBuilder from '../../builder/QueryBuilder'
+import { productSearchableFields } from './product.constant'
 import { TProduct } from './product.interface'
 import { Product } from './product.model'
 
@@ -6,8 +8,14 @@ const createProduct = async (payload: TProduct) => {
   return result
 }
 
-const getAllProducts = async () => {
-  const result = await Product.find({})
+const getAllProducts = async (query: Record<string, unknown>) => {
+  const productQuery = new QueryBuilder(Product.find(), query)
+    .search(productSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields()
+  const result = await productQuery.modelQuery()
   return result
 }
 
