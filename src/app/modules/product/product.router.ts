@@ -16,13 +16,14 @@ router.post(
   validateRequest(ProductValidations.createProductValidation),
   ProductController.createProduct,
 )
-
+router.get('/best-selling', ProductController.getBestSellingProducts)
 router.get('/:id', ProductController.getSingleProduct)
 // router.put(
 //   '/return',
 //   validateRequest(CarValidations.returnCarValidation),
 //   CarController.returnCar,
 // )
+
 router.put(
   '/:id',
   parser.array('images', 10),
@@ -31,6 +32,7 @@ router.put(
   ProductController.updateProduct,
 )
 router.delete('/:id', ProductController.deleteProduct)
+router.get('/best-selling', ProductController.getBestSellingProducts)
 
 router.get('/', ProductController.getAllProducts)
 

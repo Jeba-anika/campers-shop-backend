@@ -1,5 +1,4 @@
 import { FilterQuery, Query } from 'mongoose'
-import { isIdentifierOrThisTypeNode } from 'typescript'
 
 class QueryBuilder<T> {
   public modelQuery: Query<T[], T>
@@ -11,12 +10,13 @@ class QueryBuilder<T> {
   }
 
   search(searchableFields: string[]) {
-    if (this?.query?.searchTerm) {
+    const searchTerm = this?.query?.searchTerm
+    if (searchTerm) {
       this.modelQuery = this.modelQuery.find({
         $or: searchableFields.map(
           (field) =>
             ({
-              [field]: { $regex: this?.query?.searchTerm, $options: 'i' },
+              [field]: { $regex: searchTerm, $options: 'i' },
             }) as FilterQuery<T>,
         ),
       })
@@ -26,18 +26,25 @@ class QueryBuilder<T> {
   }
 
   filter() {
-    const queryObj = { ...this.query }
+    const queryObj = { ...this.query } // copy
+
+    // Filtering
     const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields']
+
     excludeFields.forEach((el) => delete queryObj[el])
+
     this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>)
 
     return this
   }
 
   sort() {
-    const sort =
-      (this?.query?.sort as string).split(',').join(' ') || '-createdAt'
-    this.modelQuery = this.modelQuery.sort(sort as string)
+    if (this?.query?.sort) {
+      const sort =
+        (this?.query?.sort as string)?.split(',')?.join(' ') || '-createdAt'
+      this.modelQuery = this.modelQuery.sort(sort as string)
+      return this
+    }
 
     return this
   }
@@ -48,14 +55,33 @@ class QueryBuilder<T> {
     const skip = (page - 1) * limit
 
     this.modelQuery = this.modelQuery.skip(skip).limit(limit)
-    return isIdentifierOrThisTypeNode
+
+    return this
   }
 
   fields() {
-    const fields =
-      (this?.query?.fields as string).split(',').join(' ') || '-__v'
-    this.modelQuery = this.modelQuery.select(fields)
+    if (this?.query?.fields) {
+      const fields =
+        (this?.query?.fields as string)?.split(',')?.join(' ') || '-__v'
+
+      this.modelQuery = this.modelQuery.select(fields)
+      return this
+    }
     return this
+  }
+  async countTotal() {
+    const totalQueries = this.modelQuery.getFilter()
+    const total = await this.modelQuery.model.countDocuments(totalQueries)
+    const page = Number(this?.query?.page) || 1
+    const limit = Number(this?.query?.limit) || 10
+    const totalPage = Math.ceil(total / limit)
+
+    return {
+      page,
+      limit,
+      total,
+      totalPage,
+    }
   }
 }
 

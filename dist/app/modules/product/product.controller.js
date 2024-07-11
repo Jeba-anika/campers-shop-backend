@@ -26,42 +26,51 @@ const createProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
         data: result,
     });
 }));
-// const getAllCars = catchAsync(async (req: Request, res: Response) => {
-//   const result = await CarService.getAllCars()
-//   sendResponse(res, {
-//     success: true,
-//     statusCode: httpStatus.OK,
-//     message: 'Cars retrieved successfully',
-//     data: result,
-//   })
-// })
-// const getSingleCar = catchAsync(async (req: Request, res: Response) => {
-//   const result = await CarService.getSingleCar(req.params.id)
-//   sendResponse(res, {
-//     success: true,
-//     statusCode: httpStatus.OK,
-//     message: 'A Car retrieved successfully',
-//     data: result,
-//   })
-// })
-// const updateCar = catchAsync(async (req: Request, res: Response) => {
-//   const result = await CarService.updateCar(req.params.id, req.body)
-//   sendResponse(res, {
-//     success: true,
-//     statusCode: httpStatus.OK,
-//     message: 'Car updated successfully',
-//     data: result,
-//   })
-// })
-// const deleteCar = catchAsync(async (req: Request, res: Response) => {
-//   const result = await CarService.deleteCar(req.params.id)
-//   sendResponse(res, {
-//     success: true,
-//     statusCode: httpStatus.OK,
-//     message: 'Car Deleted successfully',
-//     data: result,
-//   })
-// })
+const getAllProducts = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_service_1.ProductService.getAllProducts(req.query);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Products retrieved successfully',
+        data: result,
+    });
+}));
+const getSingleProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_service_1.ProductService.getSingleProduct(req.params.id);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'A Product retrieved successfully',
+        data: result,
+    });
+}));
+const getBestSellingProducts = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_service_1.ProductService.getBestSellingProducts();
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Best selling products retrieved successfully',
+        data: result,
+    });
+}));
+const updateProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_service_1.ProductService.updateProduct(req.params.id, req.body);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Product updated successfully',
+        data: result,
+    });
+}));
+const deleteProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_service_1.ProductService.deleteProduct(req.params.id);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Product Deleted successfully',
+        data: result,
+    });
+}));
 // const returnCar = catchAsync(async (req: Request, res: Response) => {
 //   const result = await CarService.returnCar(req.body)
 //   sendResponse(res, {
@@ -73,4 +82,9 @@ const createProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
 // })
 exports.ProductController = {
     createProduct,
+    getBestSellingProducts,
+    getSingleProduct,
+    getAllProducts,
+    updateProduct,
+    deleteProduct,
 };

@@ -9,18 +9,33 @@ const createProduct = async (payload: TProduct) => {
 }
 
 const getAllProducts = async (query: Record<string, unknown>) => {
-  const productQuery = new QueryBuilder(Product.find(), query)
+  console.log(query)
+  let baseQuery = Product.find()
+  if (query.maxPrice && query.minPrice) {
+    baseQuery = Product.find({
+      price: { $lte: Number(query.maxPrice), $gte: Number(query.minPrice) },
+    })
+  } else if (query.maxPrice) {
+    baseQuery = Product.find({ price: { $lte: Number(query.maxPrice) } })
+  } else if (query.minPrice) {
+    baseQuery = Product.find({ price: { $gte: Number(query.minPrice) } })
+  }
+  const productQuery = new QueryBuilder(baseQuery, query)
     .search(productSearchableFields)
     .filter()
     .sort()
     .paginate()
     .fields()
-  const result = await productQuery.modelQuery()
+  const result = await productQuery.modelQuery
   return result
 }
 
 const getSingleProduct = async (productId: string) => {
   const result = await Product.findById(productId)
+  return result
+}
+const getBestSellingProducts = async () => {
+  const result = await Product.find({}).sort('-soldCount').limit(4)
   return result
 }
 
@@ -84,6 +99,7 @@ const deleteProduct = async (productId: string) => {
 
 export const ProductService = {
   createProduct,
+  getBestSellingProducts,
   getSingleProduct,
   getAllProducts,
   updateProduct,

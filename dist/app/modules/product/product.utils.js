@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertReq = exports.parser = void 0;
+exports.convertUpdateProductReq = exports.convertAddProductReq = exports.parser = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const cloudinary_1 = require("cloudinary");
 const http_status_1 = __importDefault(require("http-status"));
@@ -35,7 +35,7 @@ const storage = new multer_storage_cloudinary_1.CloudinaryStorage({
     },
 });
 exports.parser = (0, multer_1.default)({ storage });
-exports.convertReq = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+exports.convertAddProductReq = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (req.files) {
         const data = JSON.parse(req.body.data);
         const newData = Object.assign(Object.assign({}, data), { productImagesLink: req.files.map((file) => ({
@@ -47,6 +47,21 @@ exports.convertReq = (0, catchAsync_1.default)((req, res, next) => __awaiter(voi
     }
     else {
         throw new AppError_1.default(http_status_1.default.NOT_ACCEPTABLE, 'Please upload at least one image');
+    }
+}));
+exports.convertUpdateProductReq = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    if (req.files) {
+        const data = JSON.parse(req.body.data);
+        const newData = Object.assign(Object.assign({}, data), { productImagesLink: req.files.map((file) => ({
+                altText: file === null || file === void 0 ? void 0 : file.filename,
+                url: file === null || file === void 0 ? void 0 : file.path,
+            })) });
+        req.body = newData;
+        next();
+    }
+    else {
+        req.body = JSON.parse(req.body.data);
+        next();
     }
 }));
 exports.default = cloudinary_1.v2;
