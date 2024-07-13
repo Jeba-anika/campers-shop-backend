@@ -8,7 +8,7 @@ const ProductImageSchema = new mongoose_1.Schema({
 });
 const productSchema = new mongoose_1.Schema({
     productName: { type: String, required: true },
-    categoryId: { type: String, required: true },
+    categoryId: { type: String, required: true, ref: 'category' },
     extraInfo: { type: [Object], required: true },
     productImagesLink: {
         type: [ProductImageSchema],
@@ -19,6 +19,7 @@ const productSchema = new mongoose_1.Schema({
     features: { type: [Object], required: true },
     isAvailable: { type: Boolean, default: true },
     price: { type: Number, required: true },
+    stockQuantity: { type: Number, required: true },
     isDeleted: { type: Boolean, default: false },
     soldCount: { type: Number, default: 0 },
     specifications: { type: [Object], required: true },

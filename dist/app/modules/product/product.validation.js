@@ -14,6 +14,7 @@ const createProductValidation = zod_1.z.object({
         required_error: 'Features is required',
     }),
     price: zod_1.z.number({ required_error: 'Price is required!' }),
+    stockQuantity: zod_1.z.number({ required_error: 'Stock Quantity is required!' }),
     soldCount: zod_1.z.number().optional(),
     productImagesLink: zod_1.z.array(zod_1.z.object({
         altText: zod_1.z.string({ required_error: 'Alt text is required!' }),
@@ -33,6 +34,7 @@ const updateProductValidation = zod_1.z.object({
     isAvailable: zod_1.z.boolean().optional(),
     features: zod_1.z.array(zod_1.z.object({}).passthrough()).optional(),
     price: zod_1.z.number().optional(),
+    stockQuantity: zod_1.z.number().optional(),
     soldCount: zod_1.z.number().optional(),
     productImagesLink: zod_1.z
         .array(zod_1.z.object({

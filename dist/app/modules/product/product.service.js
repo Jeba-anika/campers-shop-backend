@@ -21,7 +21,7 @@ const createProduct = (payload) => __awaiter(void 0, void 0, void 0, function* (
     return result;
 });
 const getAllProducts = (query) => __awaiter(void 0, void 0, void 0, function* () {
-    let baseQuery = product_model_1.Product.find();
+    let baseQuery = product_model_1.Product.find().populate('category');
     if (query.maxPrice && query.minPrice) {
         baseQuery = product_model_1.Product.find({
             price: { $lte: Number(query.maxPrice), $gte: Number(query.minPrice) },

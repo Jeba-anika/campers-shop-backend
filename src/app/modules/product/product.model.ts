@@ -9,7 +9,7 @@ const ProductImageSchema = new Schema<TProductImg>({
 const productSchema = new Schema<TProduct>(
   {
     productName: { type: String, required: true },
-    categoryId: { type: String, required: true, ref: 'category' },
+    category: { type: String, required: true, ref: 'category' },
     extraInfo: { type: [Object], required: true },
     productImagesLink: {
       type: [ProductImageSchema],

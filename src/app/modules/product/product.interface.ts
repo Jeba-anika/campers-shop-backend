@@ -3,7 +3,7 @@ export type TProductImg = {
   url: string
 }
 export type TProduct = {
-  categoryId: string
+  category: string
   productName: string
   brand: string
   price: number
