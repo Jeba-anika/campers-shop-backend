@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { CategoryRoutes } from '../modules/category/category.router'
 import { ProductRoutes } from '../modules/product/product.router'
 import { UserRouter } from '../modules/user/user.router'
 
@@ -12,10 +13,10 @@ const moduleRoutes = [
     path: '/products',
     route: ProductRoutes,
   },
-  // {
-  //   path: '/bookings',
-  //   route: BookingRoutes,
-  // },
+  {
+    path: '/category',
+    route: CategoryRoutes,
+  },
 ]
 
 moduleRoutes.forEach((route) => router.use(route.path, route.route))

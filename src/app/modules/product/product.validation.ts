@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const createProductValidation = z.object({
-  categoryId: z.string({ required_error: 'Product Name is required!' }),
+  categoryId: z.string({ required_error: 'Category Id is required!' }),
   extraInfo: z.array(z.object({}).passthrough()).optional(),
   isDeleted: z.boolean().optional(),
   productName: z.string({ required_error: 'Product Name is required!' }),

@@ -9,7 +9,6 @@ const createProduct = async (payload: TProduct) => {
 }
 
 const getAllProducts = async (query: Record<string, unknown>) => {
-  console.log(query)
   let baseQuery = Product.find()
   if (query.maxPrice && query.minPrice) {
     baseQuery = Product.find({

@@ -1,11 +1,8 @@
 import express from 'express'
 import validateRequest from '../../middlewares/validateRequest'
+import { parser } from '../../utils/fileParser'
 import { ProductController } from './product.controller'
-import {
-  convertAddProductReq,
-  convertUpdateProductReq,
-  parser,
-} from './product.utils'
+import { convertAddProductReq, convertUpdateProductReq } from './product.utils'
 import { ProductValidations } from './product.validation'
 const router = express.Router()
 
