@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductValidations = void 0;
 const zod_1 = require("zod");
 const createProductValidation = zod_1.z.object({
-    categoryId: zod_1.z.string({ required_error: 'Product Name is required!' }),
+    categoryId: zod_1.z.string({ required_error: 'Category Id is required!' }),
     extraInfo: zod_1.z.array(zod_1.z.object({}).passthrough()).optional(),
     isDeleted: zod_1.z.boolean().optional(),
     productName: zod_1.z.string({ required_error: 'Product Name is required!' }),

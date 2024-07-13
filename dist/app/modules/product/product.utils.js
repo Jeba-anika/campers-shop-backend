@@ -12,29 +12,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.convertUpdateProductReq = exports.convertAddProductReq = exports.parser = void 0;
+exports.convertUpdateProductReq = exports.convertAddProductReq = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const cloudinary_1 = require("cloudinary");
 const http_status_1 = __importDefault(require("http-status"));
-const multer_1 = __importDefault(require("multer"));
-const multer_storage_cloudinary_1 = require("multer-storage-cloudinary");
-const config_1 = __importDefault(require("../../config"));
 const AppError_1 = __importDefault(require("../../errors/AppError"));
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
-cloudinary_1.v2.config({
-    cloud_name: config_1.default.cloudinary_cloud_name,
-    api_key: config_1.default.cloudinary_api_key,
-    api_secret: config_1.default.cloudinary_api_secret,
-});
-const storage = new multer_storage_cloudinary_1.CloudinaryStorage({
-    cloudinary: cloudinary_1.v2,
-    params: {
-        // folder: 'uploads', // folder in cloudinary
-        // format: async (req, file) => 'png', // supports promises as well
-        public_id: (req, file) => file.originalname,
-    },
-});
-exports.parser = (0, multer_1.default)({ storage });
+// cloudinary.config({
+//   cloud_name: config.cloudinary_cloud_name,
+//   api_key: config.cloudinary_api_key,
+//   api_secret: config.cloudinary_api_secret,
+// })
+// const storage = new CloudinaryStorage({
+//   cloudinary: cloudinary,
+//   params: {
+//     // folder: 'uploads', // folder in cloudinary
+//     // format: async (req, file) => 'png', // supports promises as well
+//     public_id: (req, file) => file.originalname,
+//   },
+// })
+// export const parser = multer({ storage })
 exports.convertAddProductReq = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     if (req.files) {
         const data = JSON.parse(req.body.data);

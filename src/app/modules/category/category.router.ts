@@ -10,5 +10,6 @@ router.post(
   convertAddCategoryReq,
   CategoryController.createCategory,
 )
+router.get('/', CategoryController.getCategories)
 
 export const CategoryRoutes = router

@@ -21,7 +21,6 @@ const createProduct = (payload) => __awaiter(void 0, void 0, void 0, function* (
     return result;
 });
 const getAllProducts = (query) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(query);
     let baseQuery = product_model_1.Product.find();
     if (query.maxPrice && query.minPrice) {
         baseQuery = product_model_1.Product.find({
