@@ -26,6 +26,16 @@ const createCategory = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
         data: result,
     });
 }));
+const getCategories = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield category_service_1.CategoryService.getCategories();
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Category retrieved successfully',
+        data: result,
+    });
+}));
 exports.CategoryController = {
     createCategory,
+    getCategories,
 };

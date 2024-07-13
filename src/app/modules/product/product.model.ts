@@ -9,7 +9,7 @@ const ProductImageSchema = new Schema<TProductImg>({
 const productSchema = new Schema<TProduct>(
   {
     productName: { type: String, required: true },
-    categoryId: { type: String, required: true },
+    categoryId: { type: String, required: true, ref: 'category' },
     extraInfo: { type: [Object], required: true },
     productImagesLink: {
       type: [ProductImageSchema],
@@ -20,6 +20,7 @@ const productSchema = new Schema<TProduct>(
     features: { type: [Object], required: true },
     isAvailable: { type: Boolean, default: true },
     price: { type: Number, required: true },
+    stockQuantity: { type: Number, required: true },
     isDeleted: { type: Boolean, default: false },
     soldCount: { type: Number, default: 0 },
     specifications: { type: [Object], required: true },

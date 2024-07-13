@@ -15,6 +15,11 @@ const createCategory = (payload) => __awaiter(void 0, void 0, void 0, function* 
     const result = yield category_model_1.Category.create(payload);
     return result;
 });
+const getCategories = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield category_model_1.Category.find({});
+    return result;
+});
 exports.CategoryService = {
     createCategory,
+    getCategories,
 };

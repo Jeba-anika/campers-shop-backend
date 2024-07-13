@@ -12,6 +12,7 @@ const createProductValidation = z.object({
     required_error: 'Features is required',
   }),
   price: z.number({ required_error: 'Price is required!' }),
+  stockQuantity: z.number({ required_error: 'Stock Quantity is required!' }),
   soldCount: z.number().optional(),
   productImagesLink: z.array(
     z.object({
@@ -34,6 +35,7 @@ const updateProductValidation = z.object({
   isAvailable: z.boolean().optional(),
   features: z.array(z.object({}).passthrough()).optional(),
   price: z.number().optional(),
+  stockQuantity: z.number().optional(),
   soldCount: z.number().optional(),
   productImagesLink: z
     .array(
