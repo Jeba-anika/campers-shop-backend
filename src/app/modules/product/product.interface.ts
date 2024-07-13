@@ -7,6 +7,7 @@ export type TProduct = {
   productName: string
   brand: string
   price: number
+  stockQuantity: number
   soldCount: number
   isAvailable: boolean
   productImagesLink: TProductImg[]

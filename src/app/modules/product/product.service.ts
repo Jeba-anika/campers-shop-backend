@@ -9,7 +9,7 @@ const createProduct = async (payload: TProduct) => {
 }
 
 const getAllProducts = async (query: Record<string, unknown>) => {
-  let baseQuery = Product.find()
+  let baseQuery = Product.find().populate('category')
   if (query.maxPrice && query.minPrice) {
     baseQuery = Product.find({
       price: { $lte: Number(query.maxPrice), $gte: Number(query.minPrice) },
