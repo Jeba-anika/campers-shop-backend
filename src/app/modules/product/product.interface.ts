@@ -6,16 +6,15 @@ export type TProduct = {
   category: string
   productName: string
   brand: string
-  price: number
-  stockQuantity: number
+  price: string
+  stockQuantity: string
   soldCount: number
   isAvailable: boolean
   productImagesLink: TProductImg[]
   features: object[]
   specifications: object[]
-  extraInfo: object[]
+  extraInfo?: object[]
   description: string
-  isDeleted: boolean
 }
 
 export type TReturnCar = {

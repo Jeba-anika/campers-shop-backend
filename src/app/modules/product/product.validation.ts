@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const createProductValidation = z.object({
-  categoryId: z.string({ required_error: 'Category Id is required!' }),
+  category: z.string({ required_error: 'Category Id is required!' }),
   extraInfo: z.array(z.object({}).passthrough()).optional(),
   isDeleted: z.boolean().optional(),
   productName: z.string({ required_error: 'Product Name is required!' }),
@@ -11,8 +11,8 @@ const createProductValidation = z.object({
   features: z.array(z.object({}).passthrough(), {
     required_error: 'Features is required',
   }),
-  price: z.number({ required_error: 'Price is required!' }),
-  stockQuantity: z.number({ required_error: 'Stock Quantity is required!' }),
+  price: z.string({ required_error: 'Price is required!' }),
+  stockQuantity: z.string({ required_error: 'Stock Quantity is required!' }),
   soldCount: z.number().optional(),
   productImagesLink: z.array(
     z.object({
@@ -26,9 +26,8 @@ const createProductValidation = z.object({
   }),
 })
 const updateProductValidation = z.object({
-  categoryId: z.string().optional(),
+  category: z.string().optional(),
   extraInfo: z.array(z.object({}).passthrough()).optional(),
-  isDeleted: z.boolean().optional(),
   productName: z.string().optional(),
   description: z.string().optional(),
   brand: z.string().optional(),

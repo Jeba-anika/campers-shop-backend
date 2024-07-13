@@ -57,7 +57,7 @@ const updateProduct = (productId, payload) => __awaiter(void 0, void 0, void 0, 
     return result;
 });
 const deleteProduct = (productId) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield product_model_1.Product.findByIdAndUpdate(productId, { isDeleted: true }, { new: true });
+    const result = yield product_model_1.Product.findByIdAndDelete(productId, { new: true });
     return result;
 });
 // const returnCar = async (payload: TReturnCar) => {
