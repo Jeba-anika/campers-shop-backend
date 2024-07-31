@@ -14,6 +14,18 @@ const createPurchase = catchAsync(async (req: Request, res: Response) => {
   })
 })
 
+const createStripePaymentIntent = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await PurchaseService.createStripePaymentIntent(req.body)
+    sendResponse(res, {
+      data: result,
+      message: 'Created Stripe payement Intent!',
+      statusCode: httpStatus.OK,
+      success: true,
+    })
+  },
+)
+
 // const getAllBookings = catchAsync(async (req: Request, res: Response) => {
 //   let queryObj = { ...req.query }
 //   if (Object.keys(queryObj).includes('carId')) {
@@ -39,4 +51,4 @@ const createPurchase = catchAsync(async (req: Request, res: Response) => {
 //   })
 // })
 
-export const PurchaseController = { createPurchase }
+export const PurchaseController = { createPurchase, createStripePaymentIntent }

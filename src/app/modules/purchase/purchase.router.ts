@@ -1,17 +1,17 @@
 import express from 'express'
-// import auth from '../../middlewares/auth'
-// import validateRequest from '../../middlewares/validateRequest'
-// import { BookingController } from './booking.controller'
-// import { BookingValidation } from './booking.validation'
+import validateRequest from '../../middlewares/validateRequest'
+import { PurchaseController } from './purchase.controller'
+import { PurchaseValidation } from './purchase.validation'
 const router = express.Router()
 
-// router.post(
-//   '/',
-//   auth('user'),
-//   validateRequest(BookingValidation.createBookingValidation),
-//   BookingController.createBooking,
-// )
-// router.get('/my-bookings', auth('user'), BookingController.getAllBookingsOfUser)
-// router.get('/', auth('admin'), BookingController.getAllBookings)
+router.post(
+  '/create-stripe-payment-intent',
+  PurchaseController.createStripePaymentIntent,
+)
+router.post(
+  '/',
+  validateRequest(PurchaseValidation.createPurchaseValidation),
+  PurchaseController.createPurchase,
+)
 
 export const PurchaseRoutes = router

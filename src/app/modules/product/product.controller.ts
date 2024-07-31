@@ -22,6 +22,15 @@ const getAllProducts = catchAsync(async (req: Request, res: Response) => {
     data: result,
   })
 })
+const getRandomProducts = catchAsync(async (req: Request, res: Response) => {
+  const result = await ProductService.getRandomProducts()
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'Products retrieved successfully',
+    data: result,
+  })
+})
 const getSingleProduct = catchAsync(async (req: Request, res: Response) => {
   const result = await ProductService.getSingleProduct(req.params.id)
   sendResponse(res, {
@@ -72,6 +81,7 @@ const deleteProduct = catchAsync(async (req: Request, res: Response) => {
 
 export const ProductController = {
   createProduct,
+  getRandomProducts,
   getBestSellingProducts,
   getSingleProduct,
   getAllProducts,

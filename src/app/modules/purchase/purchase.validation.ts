@@ -23,6 +23,5 @@ const createPurchaseValidation = z.object({
     .number({ required_error: 'Total price is required!' })
     .positive(),
   userInfo: userSchema,
-  quantity: z.number({ required_error: 'Quantity is required!' }),
 })
 export const PurchaseValidation = { createPurchaseValidation }

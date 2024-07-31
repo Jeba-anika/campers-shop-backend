@@ -13,6 +13,7 @@ router.post(
   validateRequest(ProductValidations.createProductValidation),
   ProductController.createProduct,
 )
+router.get('/featured', ProductController.getRandomProducts)
 router.get('/best-selling', ProductController.getBestSellingProducts)
 router.get('/:id', ProductController.getSingleProduct)
 // router.put(

@@ -18,6 +18,8 @@ const getAllProducts = async (query: Record<string, unknown>) => {
     baseQuery = Product.find({ price: { $lte: Number(query.maxPrice) } })
   } else if (query.minPrice) {
     baseQuery = Product.find({ price: { $gte: Number(query.minPrice) } })
+  } else if (query.category) {
+    baseQuery = Product.find({ category: query.category })
   }
   const productQuery = new QueryBuilder(baseQuery, query)
     .search(productSearchableFields)
@@ -26,6 +28,11 @@ const getAllProducts = async (query: Record<string, unknown>) => {
     .paginate()
     .fields()
   const result = await productQuery.modelQuery
+  return result
+}
+
+const getRandomProducts = async () => {
+  const result = await Product.aggregate([{ $sample: { size: 3 } }])
   return result
 }
 
@@ -94,6 +101,7 @@ const deleteProduct = async (productId: string) => {
 
 export const ProductService = {
   createProduct,
+  getRandomProducts,
   getBestSellingProducts,
   getSingleProduct,
   getAllProducts,

@@ -16,8 +16,3 @@ export type TProduct = {
   extraInfo?: object[]
   description: string
 }
-
-export type TReturnCar = {
-  bookingId: string
-  endTime: string
-}

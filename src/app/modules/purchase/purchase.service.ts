@@ -4,13 +4,16 @@ import mongoose from 'mongoose'
 import AppError from '../../errors/AppError'
 // import { Car } from '../product/product.model'
 
+import stripe from '../../utils/stripe'
 import { Product } from '../product/product.model'
 import { TPurchase } from './purchase.interface'
+import { Purchase } from './purchase.model'
 
 const createPurchase = async (payload: TPurchase) => {
   const session = await mongoose.startSession()
   try {
     await session.startTransaction()
+    const result = await Purchase.create(payload)
     payload.productList.forEach(async (product) => {
       const isProductExists = await Product.findById(product.product)
       if (!isProductExists) {
@@ -30,26 +33,22 @@ const createPurchase = async (payload: TPurchase) => {
           'The Product stock is limited!',
         )
       }
-      if (payload.paymentType === 'COD') {
-        await Product.findByIdAndUpdate(
-          product.product,
-          {
-            stockQuantity: currentStock - product.quantity,
-            isAvailable: !(currentStock === product.quantity),
-          },
-          {
-            new: true,
-          },
-        )
-      }
+
+      await Product.findByIdAndUpdate(
+        product.product,
+        {
+          stockQuantity: currentStock - product.quantity,
+          isAvailable: !(currentStock === product.quantity),
+        },
+        {
+          new: true,
+        },
+      )
     })
 
-    if (payload.paymentType === 'Stripe') {
-      console.log('stripe')
-    }
     await session.commitTransaction()
     await session.endSession()
-    // return result
+    return result
   } catch (err: any) {
     await session.abortTransaction()
     await session.endSession()
@@ -57,4 +56,15 @@ const createPurchase = async (payload: TPurchase) => {
   }
 }
 
-export const PurchaseService = { createPurchase }
+const createStripePaymentIntent = async (payload) => {
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: Number(((payload.totalPrice as number) * 100).toFixed(2)),
+    currency: 'usd',
+    payment_method_types: ['card'],
+  })
+  return {
+    clientSecret: paymentIntent.client_secret,
+  }
+}
+
+export const PurchaseService = { createPurchase, createStripePaymentIntent }
