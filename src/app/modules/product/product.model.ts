@@ -19,10 +19,11 @@ const productSchema = new Schema<TProduct>(
     description: { type: String, required: true },
     features: { type: [Object], required: true },
     isAvailable: { type: Boolean, default: true },
-    price: { type: String, required: true },
+    price: { type: Number, required: true },
     stockQuantity: { type: Number, required: true },
     soldCount: { type: Number, default: 0 },
     specifications: { type: [Object], required: true },
+    rating: { type: Number, default: 5 },
   },
   {
     timestamps: true,

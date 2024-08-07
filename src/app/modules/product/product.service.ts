@@ -37,7 +37,7 @@ const getRandomProducts = async () => {
 }
 
 const getSingleProduct = async (productId: string) => {
-  const result = await Product.findById(productId)
+  const result = await Product.findById(productId).populate('category')
   return result
 }
 const getBestSellingProducts = async () => {
