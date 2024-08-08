@@ -33,6 +33,9 @@ const getAllProducts = (query) => __awaiter(void 0, void 0, void 0, function* ()
     else if (query.minPrice) {
         baseQuery = product_model_1.Product.find({ price: { $gte: Number(query.minPrice) } });
     }
+    else if (query.category) {
+        baseQuery = product_model_1.Product.find({ category: query.category });
+    }
     const productQuery = new QueryBuilder_1.default(baseQuery, query)
         .search(product_constant_1.productSearchableFields)
         .filter()
@@ -42,8 +45,12 @@ const getAllProducts = (query) => __awaiter(void 0, void 0, void 0, function* ()
     const result = yield productQuery.modelQuery;
     return result;
 });
+const getRandomProducts = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_model_1.Product.aggregate([{ $sample: { size: 3 } }]);
+    return result;
+});
 const getSingleProduct = (productId) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield product_model_1.Product.findById(productId);
+    const result = yield product_model_1.Product.findById(productId).populate('category');
     return result;
 });
 const getBestSellingProducts = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -99,6 +106,7 @@ const deleteProduct = (productId) => __awaiter(void 0, void 0, void 0, function*
 // }
 exports.ProductService = {
     createProduct,
+    getRandomProducts,
     getBestSellingProducts,
     getSingleProduct,
     getAllProducts,

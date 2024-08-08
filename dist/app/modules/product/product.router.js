@@ -12,6 +12,7 @@ const product_utils_1 = require("./product.utils");
 const product_validation_1 = require("./product.validation");
 const router = express_1.default.Router();
 router.post('/', fileParser_1.parser.array('images', 10), product_utils_1.convertAddProductReq, (0, validateRequest_1.default)(product_validation_1.ProductValidations.createProductValidation), product_controller_1.ProductController.createProduct);
+router.get('/featured', product_controller_1.ProductController.getRandomProducts);
 router.get('/best-selling', product_controller_1.ProductController.getBestSellingProducts);
 router.get('/:id', product_controller_1.ProductController.getSingleProduct);
 // router.put(

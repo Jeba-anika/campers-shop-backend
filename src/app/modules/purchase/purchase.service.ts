@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status'
 import mongoose from 'mongoose'
 // import QueryBuilder from '../../builder/QueryBuilder'
@@ -56,7 +57,7 @@ const createPurchase = async (payload: TPurchase) => {
   }
 }
 
-const createStripePaymentIntent = async (payload) => {
+const createStripePaymentIntent = async (payload: any) => {
   const paymentIntent = await stripe.paymentIntents.create({
     amount: Number(((payload.totalPrice as number) * 100).toFixed(2)),
     currency: 'usd',

@@ -1,6 +1,6 @@
-### A Car rental reservation system backend. Live Link: https://car-rental-reservation-system-teal.vercel.app/
+### A Car rental reservation system backend. Live Link: https://campers-shop-backend.vercel.app/
 
-Car rental reservation system backend built using Typescript, Express JS and Mongoose. This app helps a car rental business to keep track of cars and manage customer rentals.
+Campers Shop backend built using Typescript, Express JS and Mongoose. This app provides backend for an e-commerce website in which all the camping equipments can be found.
 
 - Technology used:
 
@@ -25,7 +25,7 @@ The application will start at port 3000. To run the routes locally just replace 
 
 ### Application Routes:
 
-#### User
+<!-- #### User
 
 - Route: https://car-rental-reservation-system-teal.vercel.app/api/auth/signup (POST)
 
@@ -47,63 +47,86 @@ The application will start at port 3000. To run the routes locally just replace 
   "email": "user@gmail.com",
   "password": "123456"
 }
-```
+``` -->
 
-### Cars
+### Products
 
-- Route: https://car-rental-reservation-system-teal.vercel.app/api/cars (POST)(Only accessible to admin)
+- Route: https://campers-shop-backend.vercel.app/api/products (POST)
+
+You need to provide the product picture in form data.
 
 ```sample json:
 {
-  "name": "Audi e-tron",
-  "description": "A luxury electric SUV with powerful performance and cutting-edge technology.",
-  "color": "Grey",
-  "isElectric": true,
-  "features": ["Panoramic Sunroof", "Adaptive Cruise Control", "All-Wheel Drive"],
-  "pricePerHour": 800
-}
+    category: "Tents",
+    productName: "Mountain Explorer Tent",
+    brand: "OutdoorGear",
+    price: 199.99,
+    stockQuantity: 50,
+    soldCount: 120,
+    isAvailable: true,
+    features: [
+      { feature: "Waterproof", detail: "Fully waterproof with sealed seams" },
+      { feature: "Capacity", detail: "Sleeps 4 people comfortably" }
+    ],
+    specifications: [
+      { specification: "Weight", value: "10 lbs" },
+      { specification: "Dimensions", value: "8 x 10 ft" }
+    ],
+    extraInfo: [
+      { info: "Setup Time", detail: "10 minutes" },
+      { info: "Material", detail: "Durable polyester fabric" }
+    ],
+    description: "The Mountain Explorer Tent is perfect for camping enthusiasts looking for a reliable and spacious tent. It features a waterproof design and easy setup, making it ideal for all weather conditions.",
+    rating: 4.5
+  }
 ```
 
-- Route: https://car-rental-reservation-system-teal.vercel.app/api/cars (GET)
-- Route: https://car-rental-reservation-system-teal.vercel.app/api/cars/666c4d5bbfb29328ae8ad975 (Single GET)
-- Route: https://car-rental-reservation-system-teal.vercel.app/api/cars/666c4d5bbfb29328ae8ad975 (PUT)(Only accessible to admin)
+- Route: https://campers-shop-backend.vercel.app/api/products (GET)
+- Route: https://campers-shop-backend.vercel.app/api/products/666c4d5bbfb29328ae8ad975 (Single GET)
+- Route: https://campers-shop-backend.vercel.app/api/products/666c4d5bbfb29328ae8ad975 (PUT)
+
+You can upload any picture in form data.
 
 ```sample json
 {
-    "color": "black",
-    "description": "blah blah"
-}
+    category: "Tents",
+    productName: "Mountain Explorer Tent",
+    brand: "OutdoorGear",
+    price: 199.99,
+    stockQuantity: 50,
+    soldCount: 120,
+    isAvailable: true,
+    features: [
+      { feature: "Waterproof", detail: "Fully waterproof with sealed seams" },
+      { feature: "Capacity", detail: "Sleeps 4 people comfortably" }
+    ],
+    specifications: [
+      { specification: "Weight", value: "10 lbs" },
+      { specification: "Dimensions", value: "8 x 10 ft" }
+    ],
+    extraInfo: [
+      { info: "Setup Time", detail: "10 minutes" },
+      { info: "Material", detail: "Durable polyester fabric" }
+    ],
+    description: "The Mountain Explorer Tent is perfect for camping enthusiasts looking for a reliable and spacious tent. It features a waterproof design and easy setup, making it ideal for all weather conditions.",
+    rating: 4.5
+  }
 ```
 
-- Route: https://car-rental-reservation-system-teal.vercel.app/api/cars/666c4d5bbfb29328ae8ad975 (DELETE)(Only accessible to admin)
-- Route: https://car-rental-reservation-system-teal.vercel.app/api/cars/return(PUT)
+- Route: https://campers-shop-backend.vercel.app/api/products/666c4d5bbfb29328ae8ad975 (DELETE)
 
-```sample json:
-{
-   "bookingId": "666c4d5bbfb29328ae8ad975",
-   "endTime": "21:45"
-}
-```
+### Category
 
-### Bookings
+### Purchase
 
-- Route: https://car-rental-reservation-system-teal.vercel.app/api/bookings (POST)(Only accessible to user)
+- Route: https://campers-shop-backend.vercel.app/api/purchase/create-stripe-payment-intent (POST)
 
-```sample json:
+<!-- ```sample json:
 {
    "carId": "666c4da4bfb29328ae8ad981",
    "date": "2024-06-17",
    "startTime": "13:45"
 }
-```
+``` -->
 
-- Route: https://car-rental-reservation-system-teal.vercel.app/api/bookings (GET)(Only accessible to admins)
-  Query Parameters:
-
-carId: ID of the car for which availability needs to be checked.
-date: The specific date for which availability needs to be checked (format: YYYY-MM-DD).
-Example Request:
-
-- Route: https://car-rental-reservation-system-teal.vercel.app/api/bookings?carId=666c4d92bfb29328ae8ad97b&date=2024-06-16
-
-- Route: https://car-rental-reservation-system-teal.vercel.app/api/bookings/my-bookings (GET)(Only accessible to users)
+- Route: https://campers-shop-backend.vercel.app/api/purchase (POST)

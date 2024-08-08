@@ -35,6 +35,15 @@ const getAllProducts = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
         data: result,
     });
 }));
+const getRandomProducts = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_service_1.ProductService.getRandomProducts();
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Products retrieved successfully',
+        data: result,
+    });
+}));
 const getSingleProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield product_service_1.ProductService.getSingleProduct(req.params.id);
     (0, sendResponse_1.default)(res, {
@@ -71,17 +80,9 @@ const deleteProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
         data: result,
     });
 }));
-// const returnCar = catchAsync(async (req: Request, res: Response) => {
-//   const result = await CarService.returnCar(req.body)
-//   sendResponse(res, {
-//     success: true,
-//     statusCode: httpStatus.OK,
-//     message: 'Car returned successfully',
-//     data: result,
-//   })
-// })
 exports.ProductController = {
     createProduct,
+    getRandomProducts,
     getBestSellingProducts,
     getSingleProduct,
     getAllProducts,
